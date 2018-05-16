@@ -1,0 +1,20 @@
+.navbar-fixed {
+  nav {
+    padding-right: 15px;
+    padding-left: 15px;
+    // background-color: #ffc107;
+  }
+
+  .brand-logo {
+    font-size: 18px;
+    img {
+      max-height: 30px;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+
+    span {
+      vertical-align: middle;
+    }
+  }
+}
