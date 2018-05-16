@@ -5,7 +5,6 @@ const cors = require('cors');
 
 
 const config = require('./config');
-
 const users = require('./routes/users');
 
 const app = express();
@@ -20,7 +19,7 @@ mongoose
   .connect(db)
   .then(() => console.log('Connected to Database'))
   .catch(err => {
-    throw Error(err)
+    throw new Error(err)
   })
 
 app.get('/', (req, res) => res.send('Hello!'));

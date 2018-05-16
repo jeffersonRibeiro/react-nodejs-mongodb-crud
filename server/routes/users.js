@@ -8,17 +8,6 @@ const User = require('../models/Users');
 const router = express.Router();
 
 /* 
-  @route  /api/users/test
-  @desc   Tests users api
-  @access public
-*/
-router.use('/test', (req, res) => {
-  res.json({
-    msg: 'User API working',
-  });
-});
-
-/* 
   @route  /api/users/register
   @desc   Register users
   @access public
@@ -26,9 +15,7 @@ router.use('/test', (req, res) => {
 router.use('/register', (req, res) => {
   User.findOne({ email: req.body.email })
     .then(user => {
-      if(!!user) {
-        return res.status(400).json({email: 'Email already exists'});
-      } else {
+      if(!user) {
         const profile = gravatar.url(req.body.email, {
           s: 200, // size
           r: 'pg', // ratings
@@ -43,16 +30,25 @@ router.use('/register', (req, res) => {
 
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if(err) throw err;
+            if(err) throw new Error(err);
 
             newUser.password = hash;
             newUser.save()
-              .then(user => res.json(user))
+              .then(user => res.json({
+                status: true,
+                message: 'User created succesfully',
+              }))
               .catch(err => {
-                throw err
+                throw new Error(err)
               });
           });
         });
+
+      } else {
+        return res.status(409).json({
+          status: false,
+          message: 'Email already exists',
+        });        
       }
     });
 });
