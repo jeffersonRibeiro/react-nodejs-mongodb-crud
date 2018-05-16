@@ -9,6 +9,7 @@ const config = require('./config');
 const users = require('./routes/users');
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors(config.server.cors.whiteListDomains));
 
@@ -19,7 +20,7 @@ mongoose
   .connect(db)
   .then(() => console.log('Connected to Database'))
   .catch(err => {
-    throw new Error(err)
+    throw Error(err)
   })
 
 app.get('/', (req, res) => res.send('Hello!'));
