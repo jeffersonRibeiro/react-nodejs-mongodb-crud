@@ -7,5 +7,8 @@ module.exports = {
         '*',
       ],
     },
-  }
+  },
+  auth: {
+    secret: 'chaordic',
+  },
 }
