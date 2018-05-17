@@ -39,6 +39,7 @@
     "mongoose": "^5.1.1",
     "node-sass": "^4.9.0",
     "object-assign": "4.1.1",
+    "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",

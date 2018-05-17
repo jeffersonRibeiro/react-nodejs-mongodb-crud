@@ -1,7 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 const cors = require('cors');
+
 
 
 const config = require('./config');
@@ -15,14 +17,17 @@ app.use(cors(config.server.cors.whiteListDomains));
 const db = config.mongoURI;
 
 /* Connect to MongoDB */
-mongoose
-  .connect(db)
+mongoose.connect(db)
   .then(() => console.log('Connected to Database'))
   .catch(err => {
     throw new Error(err)
-  })
+  });
 
-app.get('/', (req, res) => res.send('Hello!'));
+// Passport Middleware
+app.use(passport.initialize());
+
+// Passport Config
+require('./config/passport')(passport);
 
 app.use('/api/users', users);
 
