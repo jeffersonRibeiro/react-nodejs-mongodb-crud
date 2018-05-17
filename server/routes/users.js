@@ -53,4 +53,43 @@ router.use('/register', (req, res) => {
     });
 });
 
+/* 
+  @route  /api/users/login
+  @desc   Login users
+  @access public
+*/
+
+router.post('/login', (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  User.findOne({email})
+    .then(user => {
+
+      /* Email not found */
+      if(!user) {
+        return res.status(404).json({
+          status: 0,
+          message: 'User not found',
+        });
+      }
+
+      /* Check if password is correct */
+      bcrypt.compare(password, user.password).then(isMatch => {
+        if(isMatch) {
+          return res.json({
+            status: 1,
+            message: 'Success',
+          });
+        } else {
+          return res.status(409).json({
+            status: 0,
+            message: 'Password is incorrect',
+          });
+        }
+      });
+
+    });
+})
+
 module.exports = router;
