@@ -31,20 +31,18 @@ router.use('/register', (req, res) => {
           profile,
         });
 
-        bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if(err) throw new Error(err);
+        bcrypt.hash(newUser.password, 10, (err, hash) => {
+          if(err) throw new Error(err);
 
-            newUser.password = hash;
-            newUser.save()
-              .then(user => res.json({
-                status: true,
-                message: 'User created succesfully',
-              }))
-              .catch(err => {
-                throw new Error(err)
-              });
-          });
+          newUser.password = hash;
+          newUser.save()
+            .then(user => res.json({
+              status: true,
+              message: 'User created succesfully',
+            }))
+            .catch(err => {
+              throw new Error(err)
+            });
         });
 
       } else {
@@ -71,7 +69,7 @@ router.post('/login', (req, res) => {
 
       /* Email not found */
       if(!user) {
-        return res.status(404).json({
+        return res.json({
           status: 0,
           message: 'User not found',
         });
@@ -79,8 +77,8 @@ router.post('/login', (req, res) => {
 
       /* Check if password is correct */
       bcrypt.compare(password, user.password).then(isMatch => {
-        if(isMatch) {
-          return res.status(409).json({
+        if(!isMatch) {
+          return res.json({
             status: 0,
             message: 'Password is incorrect',
           });

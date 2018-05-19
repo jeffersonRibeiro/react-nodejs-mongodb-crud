@@ -10,6 +10,8 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Button from '@material-ui/core/Button';
 
+import axios from '../../services/axios';
+
 const styles = theme => ({
   root: {
     display: 'flex',
@@ -31,6 +33,21 @@ class Login extends Component {
     showPassword: false,
   };
 
+  handleLogin = e => {
+    const data = {
+      email: e.target.email.value,
+      password: e.target.password.value,
+    }
+    
+    axios.post('/users/login', data)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => new Error(err))
+    
+    e.preventDefault();
+  }
+
   handleChange = prop => e => {
     this.setState({ [prop]: e.target.value });
   }
@@ -46,11 +63,12 @@ class Login extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
+      <form onSubmit={this.handleLogin} className={classes.root}>
         {/* EMAIL */}
         <FormControl className={[classes.margin, classes.fill].join(' ')}>
           <InputLabel htmlFor="input-email">Email</InputLabel>
           <Input
+            name="email"
             id="input-email"
             type="text"
             value={this.state.email}
@@ -62,6 +80,7 @@ class Login extends Component {
           <InputLabel htmlFor="adornment-password">Password</InputLabel>
           <Input
             id="adornment-password"
+            name="password"
             type={this.state.showPassword ? 'text' : 'password'}
             value={this.state.password}
             onChange={this.handleChange('password')}
@@ -77,13 +96,13 @@ class Login extends Component {
             }
           />
         </FormControl>
-        <Button variant="raised" color="primary" className={classes.margin}>
+        <Button type="submit" variant="raised" color="primary" className={classes.margin}>
           Entrar
         </Button>
         <Button component={Link} to="/register" variant="flat" className={classes.margin}>
           Cadastre-se
         </Button>
-      </div>
+      </form>
     );
   }
 }
