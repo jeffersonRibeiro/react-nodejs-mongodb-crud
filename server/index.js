@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors(config.server.cors.whiteListDomains));
 
-const db = config.mongoURI;
+const db = config.database.mongoURI;
 
 /* Connect to MongoDB */
 mongoose.connect(db)
