@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import getRoutes from '../../routes';
@@ -17,17 +17,29 @@ const styles = theme => ({
   },
 });
 
-const Root = (props) => {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <AppBar />
-      <SideNav />
-      <Main>
-        { getRoutes() }
-      </Main>
-    </div>
-  );
+class Root extends Component {
+  state = {
+    auth: false,
+  }
+
+  render() {
+    const { classes } = this.props;
+    const { auth } = this.state;
+
+    return (
+      <div className={classes.root}>
+        {!!auth &&
+          <React.Fragment>
+            <AppBar />
+            <SideNav />
+          </React.Fragment>
+        }
+        <Main>
+          { getRoutes() }
+        </Main>
+      </div>
+    );
+  }
 }
 
 Root.proptypes = {

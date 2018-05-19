@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 
@@ -7,21 +7,33 @@ const styles = theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
-    paddingLeft: 264,
-    minWidth: 0, // So the Typography noWrap works
+    minWidth: 0,
   },
   toolbar: theme.mixins.toolbar,
+  logged: {
+    paddingLeft: 264,
+  },
+  notLogged: {
+    maxWidth: '400px',
+    margin: '0 auto',
+  }
 });
 
-const Main = (props) => {
-  const { classes, children } = props;
+class Main extends Component  {
+  state = {
+    auth: false,
+  }
 
-  return (
-    <main className={[classes.content, 'content'].join(' ')}>
-      <div className={[classes.toolbar, 'content-toolbar'].join(' ')} />
-      {children}
-    </main>
-  );
+  render() {
+    const { classes, children } = this.props;
+    
+    return (
+      <main className={[classes.content, 'content', !!this.state.auth ? classes.logged : classes.notLogged].join(' ')}>
+        <div className={[classes.toolbar, 'content-toolbar'].join(' ')} />
+        {children}
+      </main>
+    );
+  }
 }
 
 Main.prototypes = {

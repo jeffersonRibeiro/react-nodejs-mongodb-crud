@@ -9,14 +9,19 @@ import FormControl from '@material-ui/core/FormControl';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Button from '@material-ui/core/Button';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
 
 const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
+    justifyContent: 'space-between',
   },
   margin: {
     margin: theme.spacing.unit,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
   },
   fill: {
     flexBasis: '100%',
@@ -26,6 +31,7 @@ const styles = theme => ({
 
 class Login extends Component {
   state = {
+    name: '',
     email: '',
     password: '',
     showPassword: false,
@@ -47,12 +53,23 @@ class Login extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
+        {/* NAME */}
+        <FormControl className={[classes.margin, classes.fill].join(' ')}>
+          <InputLabel htmlFor="input-name">Nome Completo</InputLabel>
+          <Input
+            id="input-name"
+            type="text"
+            value={this.state.name}
+            onChange={this.handleChange('name')}
+          />
+        </FormControl>
         {/* EMAIL */}
         <FormControl className={[classes.margin, classes.fill].join(' ')}>
           <InputLabel htmlFor="input-email">Email</InputLabel>
           <Input
             id="input-email"
             type="text"
+            placeholder="example@chaordic.com.br"
             value={this.state.email}
             onChange={this.handleChange('email')}
           />
@@ -77,11 +94,12 @@ class Login extends Component {
             }
           />
         </FormControl>
-        <Button variant="raised" color="primary" className={classes.margin}>
-          Entrar
+        <Button color="default" component={Link} to="/login" variant="flat" className={classes.margin}>
+          <ChevronLeft className={classes.rightIcon} />
+          Voltar
         </Button>
-        <Button component={Link} to="/register" variant="flat" className={classes.margin}>
-          Cadastre-se
+        <Button variant="raised" color="primary" className={classes.margin}>
+          Continuar
         </Button>
       </div>
     );

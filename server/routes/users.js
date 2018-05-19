@@ -87,13 +87,13 @@ router.post('/login', (req, res) => {
         }
 
         const payload = {
-          user: user.id,
+          id: user.id,
           name: user.name,
           email: user.email,
           profile: user.profile,
         }
 
-        jwt.sign(payload, config.auth.secret, { expiresIn: 3600 }, (err, token) => {
+        jwt.sign(payload, config.auth.secretOrKey, { expiresIn: 3600 }, (err, token) => {
           if(err) throw new Error(err);
           
           res.json({
@@ -101,6 +101,7 @@ router.post('/login', (req, res) => {
             token: `Bearer ${token}`, 
           });
         });
+        
       });
     });
 });
@@ -110,12 +111,8 @@ router.post('/login', (req, res) => {
   @desc   Return current User
   @access private
 */
-
 router.use('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
-  res.json({
-    status: 1,
-    message: 'Success',
-  });
+  res.json(req.user);
 });
 
 
