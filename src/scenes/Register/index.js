@@ -11,6 +11,8 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Button from '@material-ui/core/Button';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 
+import axios from '../../services/axios';
+
 const styles = theme => ({
   root: {
     display: 'flex',
@@ -37,6 +39,23 @@ class Login extends Component {
     showPassword: false,
   };
 
+  handleRegister = e => {
+    const { name, email, password } = e.target;
+    const data = {
+      name: name.value,
+      email: email.value,
+      password: password.value,
+    }
+    
+    axios.post('/users/register', data)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => console.log(err));
+
+    e.preventDefault();
+  }
+
   handleChange = prop => e => {
     this.setState({ [prop]: e.target.value });
   }
@@ -52,12 +71,13 @@ class Login extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
+      <form onSubmit={this.handleRegister} className={classes.root}>
         {/* NAME */}
         <FormControl className={[classes.margin, classes.fill].join(' ')}>
           <InputLabel htmlFor="input-name">Nome Completo</InputLabel>
           <Input
             id="input-name"
+            name="name"
             type="text"
             value={this.state.name}
             onChange={this.handleChange('name')}
@@ -68,6 +88,7 @@ class Login extends Component {
           <InputLabel htmlFor="input-email">Email</InputLabel>
           <Input
             id="input-email"
+            name="email"
             type="text"
             placeholder="example@chaordic.com.br"
             value={this.state.email}
@@ -79,6 +100,7 @@ class Login extends Component {
           <InputLabel htmlFor="adornment-password">Password</InputLabel>
           <Input
             id="adornment-password"
+            name="password"
             type={this.state.showPassword ? 'text' : 'password'}
             value={this.state.password}
             onChange={this.handleChange('password')}
@@ -98,10 +120,10 @@ class Login extends Component {
           <ChevronLeft className={classes.rightIcon} />
           Voltar
         </Button>
-        <Button variant="raised" color="primary" className={classes.margin}>
+        <Button type="submit" variant="raised" color="primary" className={classes.margin}>
           Continuar
         </Button>
-      </div>
+      </form>
     );
   }
 }

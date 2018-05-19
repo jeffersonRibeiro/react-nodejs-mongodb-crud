@@ -34,9 +34,10 @@ class Login extends Component {
   };
 
   handleLogin = e => {
+    const { email, password } = e.target;
     const data = {
-      email: e.target.email.value,
-      password: e.target.password.value,
+      email: email.value,
+      password: password.value,
     }
     
     axios.post('/users/login', data)

@@ -15,7 +15,7 @@ const router = express.Router();
   @desc   Register users
   @access public
 */
-router.use('/register', (req, res) => {
+router.post('/register', (req, res) => {
   User.findOne({ email: req.body.email })
     .then(user => {
       if(!user) {
@@ -24,6 +24,7 @@ router.use('/register', (req, res) => {
           r: 'pg', // ratings
           d: 'mm', // default
         })
+
         const newUser = User({
           name: req.body.name,
           email: req.body.email,
@@ -46,7 +47,7 @@ router.use('/register', (req, res) => {
         });
 
       } else {
-        return res.status(409).json({
+        return res.json({
           status: false,
           message: 'Email already exists',
         });        
