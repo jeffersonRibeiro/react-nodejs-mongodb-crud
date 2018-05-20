@@ -6,11 +6,13 @@ export const login = formData => dispatch => {
 
   axios.post('/users/login', formData)
     .then(res => {
-      const { name, email, profile } = res.data;
+      const { name, email, profile, created_date, updated_date } = res.data;
       const payload = {
         name,
         email,
         profile,
+        created_date,
+        updated_date,
       }
       
       return dispatch({

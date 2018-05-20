@@ -1,5 +1,6 @@
 const express = require('express');
 const gravatar = require('gravatar');
+const dateFormat = require('dateformat');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
@@ -85,11 +86,14 @@ router.post('/login', (req, res) => {
           });
         }
 
+
         const payload = {
           id: user.id,
           name: user.name,
           email: user.email,
           profile: user.profile,
+          created_date: dateFormat(user.created_date),
+          updated_date: dateFormat(user.updated_date),
         }
 
         jwt.sign(payload, config.auth.secretOrKey, { expiresIn: 3600 }, (err, token) => {
