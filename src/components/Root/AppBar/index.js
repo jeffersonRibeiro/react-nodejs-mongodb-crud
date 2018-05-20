@@ -90,14 +90,13 @@ class _AppBar extends Component {
                 horizontal: 'right',
               }}
               open={open}
-              onClose={this.handleMenuClose}
             >
               <MenuItem onClick={this.handleMenuClose} component={NavLink} to="/profile">
                 Perfil
               </MenuItem>
               <MenuItem onClick={() => {
                 this.handleMenuClose();
-                this.handleToggleDialog()
+                this.handleToggleDialog();
               }}>
                 <ListItemIcon>
                   <LogoutIcon />
@@ -109,9 +108,9 @@ class _AppBar extends Component {
         </Toolbar>
         <Dialog
           open={this.state.dialogOpen}
-          onClose={this.handleToggleDialog}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
+          disableEnforceFocus
         >
           <DialogTitle id="alert-dialog-title">{"Tem certeza de que deseja sair?"}</DialogTitle>
           <DialogContent>

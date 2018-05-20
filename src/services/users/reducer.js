@@ -9,7 +9,7 @@ const initialState = {
     created_date: '',
     updated_date: '',
     token: '',
-  }
+  },
 }
 
 export default function(state = initialState, action){

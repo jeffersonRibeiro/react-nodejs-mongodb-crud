@@ -15,7 +15,12 @@ const store = createStore(
 );
 
 store.subscribe(() => {
-  window.localStorage.setItem('state', JSON.stringify(store.getState()));
+  const state = store.getState();
+  const persist = {
+    user: state.user,
+  }
+
+  window.localStorage.setItem('state', JSON.stringify(persist));
 });
 
 export default store;

@@ -71,7 +71,7 @@ router.post('/login', (req, res) => {
       /* Email not found */
       if(!user) {
         return res.json({
-          status: false,
+          status: 'USER_NOT_FOUND',
           message: 'User not found',
         });
       }
@@ -80,7 +80,7 @@ router.post('/login', (req, res) => {
       bcrypt.compare(password, user.password).then(isMatch => {
         if(!isMatch) {
           return res.json({
-            status: false,
+            status: 'PASSWORD_INCORRECT',
             message: 'Password is incorrect',
           });
         }

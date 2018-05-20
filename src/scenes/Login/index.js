@@ -11,6 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Button from '@material-ui/core/Button';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 import { login } from '../../services/users/actions';
 
@@ -59,7 +60,7 @@ class Login extends Component {
     }
 
     this.props.login(data);
-    
+
     e.preventDefault();
   }
 
@@ -76,11 +77,15 @@ class Login extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, error } = this.props;
     return (
       <form onSubmit={this.handleLogin} className={classes.root}>
         {/* EMAIL */}
-        <FormControl className={[classes.margin, classes.fill].join(' ')}>
+        <FormControl
+          className={[classes.margin, classes.fill].join(' ')}
+          error={error.status === 'USER_NOT_FOUND' ? true : false}
+          aria-describedby="email-error-text"
+        >
           <InputLabel htmlFor="input-email">Email</InputLabel>
           <Input
             name="email"
@@ -89,9 +94,16 @@ class Login extends Component {
             value={this.state.email}
             onChange={this.handleChange('email')}
           />
+          {error.status === 'USER_NOT_FOUND' &&
+            <FormHelperText id="email-error-text">{error.message}</FormHelperText>
+          }
         </FormControl>
         {/* PASSWORD */}
-        <FormControl className={[classes.margin, classes.fill].join(' ')}>
+        <FormControl
+          className={[classes.margin, classes.fill].join(' ')}
+          error={error.status === 'PASSWORD_INCORRECT' ? true : false}
+          aria-describedby="passowrd-error-text"
+        >
           <InputLabel htmlFor="adornment-password">Password</InputLabel>
           <Input
             id="adornment-password"
@@ -110,6 +122,9 @@ class Login extends Component {
               </InputAdornment>
             }
           />
+          {error.status === 'PASSWORD_INCORRECT' &&
+            <FormHelperText id="password-error-text">{error.message}</FormHelperText>
+          }
         </FormControl>
         <Button type="submit" variant="raised" color="primary" className={classes.margin}>
           Entrar
@@ -124,6 +139,7 @@ class Login extends Component {
 
 const mapStateToProps = state => ({
   user: state.user.data,
+  error: state.error,
 })
 
 export default withRouter(compose(
