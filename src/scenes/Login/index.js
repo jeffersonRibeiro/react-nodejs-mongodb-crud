@@ -116,6 +116,7 @@ class Login extends Component {
 
 const mapStateToProps = state => ({
   user: state.user.data,
+  router: state.router,
 })
 
 export default compose(

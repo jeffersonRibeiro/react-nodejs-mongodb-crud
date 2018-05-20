@@ -26,7 +26,7 @@ class Root extends Component {
 
     return (
       <div className={classes.root}>
-        {!!user.auth &&
+        {user.auth &&
           <React.Fragment>
             <AppBar />
             <SideNav />
