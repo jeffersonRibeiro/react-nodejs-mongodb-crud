@@ -1,1 +1,1 @@
-export const LOGIN_FAIL = 'LOGIN_FAIL';
+export const FORM_SUBMIT_FAIL = 'FORM_SUBMIT_FAIL';

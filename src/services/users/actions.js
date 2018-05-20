@@ -1,5 +1,5 @@
 import { USER_LOGIN, USER_LOGOUT } from './actionTypes';
-import { LOGIN_FAIL } from '../errors/actionTypes';
+import { FORM_SUBMIT_FAIL } from '../errors/actionTypes';
 
 import axios from '../axios';
 
@@ -10,7 +10,7 @@ export const login = formData => dispatch => {
       
       if(status !== true) {
         return dispatch({
-          type: LOGIN_FAIL,
+          type: FORM_SUBMIT_FAIL,
           payload: {
             status,
             message,

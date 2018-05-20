@@ -1,4 +1,4 @@
-import { LOGIN_FAIL } from './actionTypes';
+import { FORM_SUBMIT_FAIL } from './actionTypes';
 
 const initialState = {
   status: '',
@@ -7,7 +7,7 @@ const initialState = {
 
 export default function(state = initialState, action){
   switch(action.type){
-    case LOGIN_FAIL:
+    case FORM_SUBMIT_FAIL:
       return {
         ...state,
         ...action.payload,

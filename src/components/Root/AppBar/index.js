@@ -112,10 +112,10 @@ class _AppBar extends Component {
           aria-describedby="alert-dialog-description"
           disableEnforceFocus
         >
-          <DialogTitle id="alert-dialog-title">{"Tem certeza de que deseja sair?"}</DialogTitle>
+          <DialogTitle id="alert-dialog-title">Tem certeza de que deseja sair?</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              Continue mais tempo com a gente, somos tão legais :)
+              Continue mais um tempo com a gente, somos tão legais :)
             </DialogContentText>
           </DialogContent>
           <DialogActions>

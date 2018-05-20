@@ -19,40 +19,39 @@ const router = express.Router();
 router.post('/register', (req, res) => {
   User.findOne({ email: req.body.email })
     .then(user => {
-      if(!user) {
-        const profile = gravatar.url(req.body.email, {
-          s: 200, // size
-          r: 'pg', // ratings
-          d: 'mm', // default
-        })
-
-        const newUser = User({
-          name: req.body.name,
-          email: req.body.email,
-          password: req.body.password,
-          profile,
-        });
-
-        bcrypt.hash(newUser.password, 10, (err, hash) => {
-          if(err) throw new Error(err);
-
-          newUser.password = hash;
-          newUser.save()
-            .then(user => res.json({
-              status: true,
-              message: 'User created succesfully',
-            }))
-            .catch(err => {
-              throw new Error(err)
-            });
-        });
-
-      } else {
+      if(user){
         return res.json({
-          status: false,
-          message: 'Email already exists',
-        });        
+          status: 'EMAIL_ALREADY_EXISTS',
+          message: 'Email já existe',
+        });
       }
+      
+      const profile = gravatar.url(req.body.email, {
+        s: 200, // size
+        r: 'pg', // ratings
+        d: 'mm', // default
+      })
+
+      const newUser = User({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        profile,
+      });
+
+      bcrypt.hash(newUser.password, 10, (err, hash) => {
+        if(err) throw new Error(err);
+
+        newUser.password = hash;
+        newUser.save()
+          .then(user => res.json({
+            status: true,
+            message: 'Usuário criado com sucesso!',
+          }))
+          .catch(err => {
+            throw new Error(err)
+          });
+      });
     });
 });
 
@@ -72,7 +71,7 @@ router.post('/login', (req, res) => {
       if(!user) {
         return res.json({
           status: 'USER_NOT_FOUND',
-          message: 'User not found',
+          message: 'Usuário não encontrado',
         });
       }
 
@@ -81,7 +80,7 @@ router.post('/login', (req, res) => {
         if(!isMatch) {
           return res.json({
             status: 'PASSWORD_INCORRECT',
-            message: 'Password is incorrect',
+            message: 'Senha incorreta',
           });
         }
 
@@ -100,7 +99,7 @@ router.post('/login', (req, res) => {
           
           res.json({
             status: true,
-            message: 'Login successfully',
+            message: 'Login efeito com sucesso!',
             ...payload,
             token: `Bearer ${token}`,
           });
