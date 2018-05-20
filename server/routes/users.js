@@ -71,7 +71,7 @@ router.post('/login', (req, res) => {
       /* Email not found */
       if(!user) {
         return res.json({
-          status: 0,
+          status: false,
           message: 'User not found',
         });
       }
@@ -80,7 +80,7 @@ router.post('/login', (req, res) => {
       bcrypt.compare(password, user.password).then(isMatch => {
         if(!isMatch) {
           return res.json({
-            status: 0,
+            status: false,
             message: 'Password is incorrect',
           });
         }
@@ -96,7 +96,8 @@ router.post('/login', (req, res) => {
           if(err) throw new Error(err);
           
           res.json({
-            status: 1,
+            status: true,
+            ...payload,
             token: `Bearer ${token}`, 
           });
         });

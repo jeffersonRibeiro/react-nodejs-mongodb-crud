@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
@@ -10,7 +12,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Button from '@material-ui/core/Button';
 
-import axios from '../../services/axios';
+import { login } from '../../services/users/actions';
 
 const styles = theme => ({
   root: {
@@ -33,18 +35,22 @@ class Login extends Component {
     showPassword: false,
   };
 
+  componentDidUpdate() {
+    const { user, history } = this.props;
+
+    if(user.auth){
+      history.push('/');
+    }
+  }
+
   handleLogin = e => {
     const { email, password } = e.target;
     const data = {
       email: email.value,
       password: password.value,
     }
-    
-    axios.post('/users/login', data)
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(err => new Error(err))
+
+    this.props.login(data);
     
     e.preventDefault();
   }
@@ -108,4 +114,11 @@ class Login extends Component {
   }
 }
 
-export default withStyles(styles)(Login);
+const mapStateToProps = state => ({
+  user: state.user.data,
+})
+
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps, { login }),
+)(Login);

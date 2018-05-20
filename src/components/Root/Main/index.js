@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 
@@ -20,15 +22,11 @@ const styles = theme => ({
 });
 
 class Main extends Component  {
-  state = {
-    auth: false,
-  }
-
   render() {
-    const { classes, children } = this.props;
+    const { classes, children, user } = this.props;
     
     return (
-      <main className={[classes.content, 'content', !!this.state.auth ? classes.logged : classes.notLogged].join(' ')}>
+      <main className={[classes.content, 'content', user.auth ? classes.logged : classes.notLogged].join(' ')}>
         <div className={[classes.toolbar, 'content-toolbar'].join(' ')} />
         {children}
       </main>
@@ -40,5 +38,11 @@ Main.prototypes = {
   classes: PropTypes.object.isRequired,
 }
 
+const mapStateToProps = state => ({
+  user: state.user.data,
+});
 
-export default withStyles(styles)(Main);
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps, {}),
+)(Main);

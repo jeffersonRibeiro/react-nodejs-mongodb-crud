@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 
 import getRoutes from '../../routes';
 import { withStyles } from 'material-ui/styles';
@@ -18,17 +20,13 @@ const styles = theme => ({
 });
 
 class Root extends Component {
-  state = {
-    auth: false,
-  }
 
   render() {
-    const { classes } = this.props;
-    const { auth } = this.state;
+    const { classes, user } = this.props;
 
     return (
       <div className={classes.root}>
-        {!!auth &&
+        {!!user.auth &&
           <React.Fragment>
             <AppBar />
             <SideNav />
@@ -46,4 +44,11 @@ Root.proptypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(Root);
+const mapStateToProps = state => ({
+  user: state.user.data,
+});
+
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps, {}),
+)(Root);

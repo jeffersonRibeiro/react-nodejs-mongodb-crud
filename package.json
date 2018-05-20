@@ -111,6 +111,9 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "nodemon": "^1.17.4"
+    "nodemon": "^1.17.4",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.2.0"
   }
 }
