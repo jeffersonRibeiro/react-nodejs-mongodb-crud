@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import PrivateRoute from './scenes/components/PrivateRoute';
 import asyncComponent from './scenes/components/hoc/asyncComponent';
@@ -18,9 +18,10 @@ function from(path) {
 
 export default () => (
   <Switch>
+    <PrivateRoute exact path="/" component={Home} />
     <Route path="/login" component={Login} />
     <Route path="/register" component={Register} />
     <PrivateRoute path="/profile" component={Profile} />
-    <PrivateRoute exact path="/" component={Home} />
+    <Route render={() => <Redirect to="/" />} />
   </Switch>
 )
