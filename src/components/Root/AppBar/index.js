@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
@@ -6,10 +8,10 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import { ListItemIcon, ListItemText } from 'material-ui/List';
 import LogoutIcon from '@material-ui/icons/Input';
+import Avatar from '@material-ui/core/Avatar';
 
 const styles = theme => ({
   appBar: {
@@ -35,7 +37,7 @@ class _AppBar extends Component {
   };
   
   render() {
-    const { classes } = this.props;
+    const { classes, user } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
@@ -51,8 +53,9 @@ class _AppBar extends Component {
               aria-haspopup="true"
               onClick={this.handleMenu}
               color="inherit"
+              src=""
             >
-              <AccountCircle />
+              <Avatar alt="Remy Sharp" src={user.profile} />
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -68,7 +71,9 @@ class _AppBar extends Component {
               open={open}
               onClose={this.handleClose}
             >
-              <MenuItem onClick={this.handleClose} component={NavLink} to="/profile">Meu Perfil</MenuItem>
+              <MenuItem onClick={this.handleClose} component={NavLink} to="/profile">
+                Perfil
+              </MenuItem>
               <MenuItem onClick={this.handleClose}>
                 <ListItemIcon>
                   <LogoutIcon />
@@ -87,4 +92,11 @@ _AppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(_AppBar);
+const mapStateToProps = state => ({
+  user: state.user.data,
+})
+
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps, {}),
+)(_AppBar);
