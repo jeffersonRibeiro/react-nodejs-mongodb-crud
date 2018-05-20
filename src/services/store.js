@@ -1,11 +1,10 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
+import ls from './localstorage';
 
-
-const initialState = {};
-
-const middleware = [thunk];
+const initialState = JSON.parse(ls().get()) || {};
+const middleware = [thunk]; 
 
 const store = createStore(
   rootReducer,
@@ -15,5 +14,9 @@ const store = createStore(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
+
+store.subscribe(() => {
+  ls().persist(JSON.stringify(store.getState()));
+});
 
 export default store;

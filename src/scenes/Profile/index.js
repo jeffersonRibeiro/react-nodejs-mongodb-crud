@@ -71,7 +71,7 @@ class Profile extends Component {
             <Input
               id="input-email"
               type="text"
-              disabled="disabled"
+              disabled={true}
               value={user.email}
             />
           </FormControl>
@@ -81,7 +81,7 @@ class Profile extends Component {
             <Input
               id="input-created-date"
               type="text"
-              disabled="disabled"
+              disabled={true}
               value={user.created_date}
             />
           </FormControl>
@@ -91,7 +91,7 @@ class Profile extends Component {
             <Input
               id="input-updated-date"
               type="text"
-              disabled="disabled"
+              disabled={true}
               value={user.updated_date}
             />
           </FormControl>

@@ -35,7 +35,15 @@ class Login extends Component {
     showPassword: false,
   };
 
+  componentDidMount() {
+    this.redirectLogged();
+  }
+
   componentDidUpdate() {
+    this.redirectLogged();    
+  }
+
+  redirectLogged() {
     const { user, history } = this.props;
 
     if(user.auth){
