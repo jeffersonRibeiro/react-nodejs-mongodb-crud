@@ -12,6 +12,14 @@ import Menu, { MenuItem } from 'material-ui/Menu';
 import { ListItemIcon, ListItemText } from 'material-ui/List';
 import LogoutIcon from '@material-ui/icons/Input';
 import Avatar from '@material-ui/core/Avatar';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+
+import { logout } from '../../../services/users/actions';
 
 const styles = theme => ({
   appBar: {
@@ -26,15 +34,28 @@ const styles = theme => ({
 class _AppBar extends Component {
   state = {
     anchorEl: null,
+    dialogOpen: false,
   };
+
+  handleLogout = () => {
+    this.handleMenuClose();
+    this.props.logout();
+  }
 
   handleMenu = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleClose = () => {
+  handleMenuClose = () => {
     this.setState({ anchorEl: null });
   };
+
+  handleToggleDialog = () => {
+    this.setState(prevState => ({
+        dialogOpen: !prevState.dialogOpen,
+      })
+    )
+  }
   
   render() {
     const { classes, user } = this.props;
@@ -69,12 +90,15 @@ class _AppBar extends Component {
                 horizontal: 'right',
               }}
               open={open}
-              onClose={this.handleClose}
+              onClose={this.handleMenuClose}
             >
-              <MenuItem onClick={this.handleClose} component={NavLink} to="/profile">
+              <MenuItem onClick={this.handleMenuClose} component={NavLink} to="/profile">
                 Perfil
               </MenuItem>
-              <MenuItem onClick={this.handleClose}>
+              <MenuItem onClick={() => {
+                this.handleMenuClose();
+                this.handleToggleDialog()
+              }}>
                 <ListItemIcon>
                   <LogoutIcon />
                 </ListItemIcon>
@@ -83,6 +107,27 @@ class _AppBar extends Component {
             </Menu>
           </div>
         </Toolbar>
+        <Dialog
+          open={this.state.dialogOpen}
+          onClose={this.handleToggleDialog}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Tem certeza de que deseja sair?"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Continue mais tempo com a gente, somos tão legais :)
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleToggleDialog} color="primary">
+              Cancelar
+            </Button>
+            <Button onClick={this.handleLogout} color="primary" autoFocus>
+              Sair mesmo assim
+            </Button>
+          </DialogActions>
+        </Dialog>
       </AppBar>
     );
   }
@@ -98,5 +143,5 @@ const mapStateToProps = state => ({
 
 export default compose(
   withStyles(styles),
-  connect(mapStateToProps, {}),
+  connect(mapStateToProps, { logout }),
 )(_AppBar);

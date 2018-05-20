@@ -61,7 +61,6 @@ router.post('/register', (req, res) => {
   @desc   Login users
   @access public
 */
-
 router.post('/login', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -101,8 +100,9 @@ router.post('/login', (req, res) => {
           
           res.json({
             status: true,
+            message: 'Login successfully',
             ...payload,
-            token: `Bearer ${token}`, 
+            token: `Bearer ${token}`,
           });
         });
         
@@ -111,11 +111,11 @@ router.post('/login', (req, res) => {
 });
 
 /* 
-  @route  /api/users/current
-  @desc   Return current User
+  @route  /api/users/x
+  @desc   x
   @access private
 */
-router.use('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.use('/x', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.json(req.user);
 });
 

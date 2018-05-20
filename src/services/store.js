@@ -1,9 +1,8 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
-import ls from './localstorage';
 
-const initialState = JSON.parse(ls().get()) || {};
+const initialState = JSON.parse(window.localStorage.getItem('state')) || {};
 const middleware = [thunk]; 
 
 const store = createStore(
@@ -16,7 +15,7 @@ const store = createStore(
 );
 
 store.subscribe(() => {
-  ls().persist(JSON.stringify(store.getState()));
+  window.localStorage.setItem('state', JSON.stringify(store.getState()));
 });
 
 export default store;
