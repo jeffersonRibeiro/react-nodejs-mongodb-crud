@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 
@@ -42,7 +43,7 @@ const mapStateToProps = state => ({
   user: state.user.data,
 });
 
-export default compose(
+export default withRouter(compose(
   withStyles(styles),
   connect(mapStateToProps, {}),
-)(Main);
+)(Main));

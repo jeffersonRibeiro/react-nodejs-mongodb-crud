@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
@@ -116,10 +116,9 @@ class Login extends Component {
 
 const mapStateToProps = state => ({
   user: state.user.data,
-  router: state.router,
 })
 
-export default compose(
+export default withRouter(compose(
   withStyles(styles),
   connect(mapStateToProps, { login }),
-)(Login);
+)(Login));

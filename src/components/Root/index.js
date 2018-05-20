@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
@@ -48,7 +49,7 @@ const mapStateToProps = state => ({
   user: state.user.data,
 });
 
-export default compose(
+export default withRouter(compose(
   withStyles(styles),
   connect(mapStateToProps, {}),
-)(Root);
+)(Root));
