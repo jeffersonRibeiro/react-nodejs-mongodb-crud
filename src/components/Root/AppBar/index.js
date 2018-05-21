@@ -80,6 +80,7 @@ class _AppBar extends Component {
             </IconButton>
             <Menu
               id="menu-appbar"
+              onClose={this.handleMenuClose}
               anchorEl={anchorEl}
               anchorOrigin={{
                 vertical: 'top',
@@ -108,6 +109,7 @@ class _AppBar extends Component {
         </Toolbar>
         <Dialog
           open={this.state.dialogOpen}
+          onClose={this.handleToggleDialog}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
           disableEnforceFocus
