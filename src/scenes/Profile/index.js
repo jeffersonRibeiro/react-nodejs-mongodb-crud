@@ -7,6 +7,9 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
+import DatePicker from 'material-ui-pickers/DatePicker';
+import MomentUtils from 'material-ui-pickers/utils/moment-utils';
+import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
 
 const styles = theme => ({
   root: {
@@ -23,12 +26,22 @@ const styles = theme => ({
   fill: {
     flexBasis: '100%',
   },
+  dates: {
+    flexBasis: '33.33%',
+  }
 });
 
 class Profile extends Component {
-  state = {
-    name: this.props.user.name,
-  };
+  constructor(props) {
+    super(props);
+    
+    const { name, birthDate } = this.props.user;
+    this.state = {
+      name,
+      birthDate, 
+    };
+  }
+  
 
   handleRegister = e => {
     const { name } = e.target;
@@ -43,6 +56,10 @@ class Profile extends Component {
 
   handleChange = prop => e => {
     this.setState({ [prop]: e.target.value });
+  }
+
+  handleBirthDateChange = (date) => {
+    this.setState({ birthDate: date });
   }
 
   render() {
@@ -75,8 +92,23 @@ class Profile extends Component {
               value={user.email}
             />
           </FormControl>
+          {/* BIRTH DATE */}
+          <FormControl className={[classes.dates, classes.margin].join(' ')}>
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+              <DatePicker
+                keyboard
+                name="birthDate"
+                label="Data de nascimento"
+                format="DD/MM/YYYY"
+                placeholder="15/03/1993"
+                mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : [])}
+                value={this.state.birthDate}
+                onChange={this.handleBirthDateChange}
+              />
+            </MuiPickersUtilsProvider>
+          </FormControl>
           {/* CREATED DATE */}
-          <FormControl className={[classes.margin].join(' ')}>
+          <FormControl className={[classes.dates, classes.margin].join(' ')}>
             <InputLabel htmlFor="input-created-date">Criado em</InputLabel>
             <Input
               id="input-created-date"
@@ -86,7 +118,7 @@ class Profile extends Component {
             />
           </FormControl>
           {/* UPDATED DATE */}
-          <FormControl className={[classes.margin].join(' ')}>
+          <FormControl className={[classes.dates, classes.margin].join(' ')}>
             <InputLabel htmlFor="input-updated-date">Atualizado em</InputLabel>
             <Input
               id="input-updated-date"

@@ -1,9 +1,9 @@
 const express = require('express');
 const gravatar = require('gravatar');
-const dateFormat = require('dateformat');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
+const moment = require('moment');
 
 const User = require('../models/Users');
 const config = require('../config');
@@ -35,7 +35,7 @@ router.post('/register', (req, res) => {
       const newUser = User({
         name: req.body.name,
         email: req.body.email,
-        birthDate: req.body.birthDate,
+        birthDate: moment(req.body.birthDate, 'DD/MM/YYYY'),
         password: req.body.password,
         profile,
       });
@@ -91,9 +91,9 @@ router.post('/login', (req, res) => {
           name: user.name,
           email: user.email,
           profile: user.profile,
-          birthDate: dateFormat(user.birthDate),
-          createdDate: dateFormat(user.createdDate),
-          updatedDate: dateFormat(user.updatedDate),
+          birthDate: user.birthDate,
+          createdDate: user.createdDate,
+          updatedDate: user.updatedDate,
         }
 
         jwt.sign(payload, config.auth.secretOrKey, { expiresIn: 3600 }, (err, token) => {
@@ -110,6 +110,31 @@ router.post('/login', (req, res) => {
       });
     });
 });
+
+
+/* 
+  @route  /api/users/update
+  @desc   Login users
+  @access public
+*/
+router.put('/update',  passport.authenticate('jwt', { session: false }), (req, res) => {
+  const { email } = req.user;
+  const updatedData = {
+    name: req.body.name,
+    birthDate: moment(req.body.birthDate, 'DD/MM/YYYY'),
+  }
+
+  const opts = {
+    new: true,
+  }
+
+  User.findOneAndUpdate({ email }, updatedData, opts)
+    .then(user => {
+      res.json(user);
+    });
+});
+
+
 
 /* 
   @route  /api/users/x
