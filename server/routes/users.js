@@ -119,7 +119,8 @@ router.post('/login', (req, res) => {
 */
 router.put('/update',  passport.authenticate('jwt', { session: false }), (req, res) => {
   const { email } = req.user;
-  const updatedData = {
+  const { authorization } = req.headers;
+  const formData = {
     name: req.body.name,
     birthDate: moment(req.body.birthDate, 'DD/MM/YYYY'),
   }
@@ -128,9 +129,22 @@ router.put('/update',  passport.authenticate('jwt', { session: false }), (req, r
     new: true,
   }
 
-  User.findOneAndUpdate({ email }, updatedData, opts)
+  User.findOneAndUpdate({ email }, { $set: formData }, opts)
     .then(user => {
-      res.json(user);
+      const { name, email, profile, birthDate, createdDate, updatedDate } = user;
+      const payload = {
+        name,
+        email,
+        profile,
+        birthDate,
+        createdDate,
+        updatedDate,
+      }
+
+      res.json({
+        ...payload,
+        token: authorization,
+      });
     });
 });
 
