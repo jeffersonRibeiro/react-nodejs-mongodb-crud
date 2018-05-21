@@ -8,6 +8,7 @@ const Home = from('./scenes/Home');
 const Login = from('./scenes/Login');
 const Register = from('./scenes/Register');
 const Profile = from('./scenes/Profile');
+const Users = from('./scenes/Users');
 
 function from(path) {
   return asyncComponent(() => {
@@ -22,6 +23,8 @@ export default () => (
     <Route path="/login" component={Login} />
     <Route path="/register" component={Register} />
     <PrivateRoute path="/profile" component={Profile} />
+    <PrivateRoute path="/users/all" component={Users} />
+    <Redirect exact path="/users" to="/users/all" />
     <Route render={() => <Redirect to="/" />} />
   </Switch>
 )

@@ -115,7 +115,7 @@ router.post('/login', (req, res) => {
 /* 
   @route  /api/users/update
   @desc   Update profile information
-  @access public
+  @access private
 */
 router.put('/update',  passport.authenticate('jwt', { session: false }), (req, res) => {
   const { email } = req.user;
@@ -150,9 +150,9 @@ router.put('/update',  passport.authenticate('jwt', { session: false }), (req, r
 });
 
 /* 
-  @route  /api/users/update
-  @desc   Update profile information
-  @access public
+  @route  /api/users/delete
+  @desc   Delete account
+  @access private
 */
 router.delete('/delete',  passport.authenticate('jwt', { session: false }), (req, res) => {
   const { email } = req.user;
@@ -164,6 +164,17 @@ router.delete('/delete',  passport.authenticate('jwt', { session: false }), (req
         message: 'Conta deletada com sucesso!',
       })
     });
+});
+
+/* 
+  @route  /api/users/all
+  @desc   Get all users
+  @access private
+*/
+router.get('/all',  passport.authenticate('jwt', { session: false }), (req, res) => {
+  User.find({}, (err, users) => {
+    res.send(users);  
+  });
 });
 
 

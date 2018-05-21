@@ -177,7 +177,7 @@ class Profile extends Component {
           </Button>
         </form>
         <Button onClick={this.handleDeleteAccount} variant="raised" color="secondary" className={classes.margin}>
-          Deletar
+          Deletar conta
         </Button>
         <Snackbar
           anchorOrigin={{

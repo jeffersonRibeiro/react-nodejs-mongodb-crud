@@ -38,7 +38,7 @@ export const login = formData => dispatch => {
 }
 
 export const updateProfile = (formData, token) => dispatch => {
-  var config = {
+  const config = {
     headers: {
       'Authorization': token,
     }

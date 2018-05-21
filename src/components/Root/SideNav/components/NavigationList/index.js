@@ -16,7 +16,13 @@ const NavigationList = (props) => {
         <ListItemIcon>
           <HomeIcon />
         </ListItemIcon>
-        <ListItemText primary="Home" />
+        <ListItemText primary="Ínicio" />
+      </ListItem>
+      <ListItem component={NavLink} exact to="/users/all" button>
+        <ListItemIcon>
+          <HomeIcon />
+        </ListItemIcon>
+        <ListItemText primary="Lista Usuários" />
       </ListItem>
     </List>
   );
