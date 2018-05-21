@@ -11,6 +11,8 @@ import DatePicker from 'material-ui-pickers/DatePicker';
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
 
+import { updateProfile } from '../../services/users/actions';
+
 const styles = theme => ({
   root: {
     display: 'flex',
@@ -43,13 +45,15 @@ class Profile extends Component {
   }
   
 
-  handleRegister = e => {
-    const { name } = e.target;
-    const data = {
+  handleUpdate = e => {
+    const { user, updateProfile } = this.props;
+    const { name, birthDate } = e.target;
+    const formData = {
       name: name.value,
+      birthDate: birthDate.value,
     }
-    
-    /* Request here */
+
+    updateProfile(formData, user.token);
 
     e.preventDefault();
   }
@@ -70,7 +74,7 @@ class Profile extends Component {
         <Typography variant="subheading" color="textSecondary" noWrap>
           Meu Perfil
         </Typography>
-        <form onSubmit={this.handleRegister} className={classes.root}>
+        <form onSubmit={this.handleUpdate} className={classes.root}>
           {/* NAME */}
           <FormControl className={[classes.margin, classes.fill].join(' ')}>
             <InputLabel htmlFor="input-name">Nome Completo</InputLabel>
@@ -142,5 +146,5 @@ const mapStateToProps = state => ({
 
 export default compose(
   withStyles(styles),
-  connect(mapStateToProps, {}),
+  connect(mapStateToProps, { updateProfile }),
 )(Profile);

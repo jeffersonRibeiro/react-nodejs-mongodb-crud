@@ -1,4 +1,4 @@
-import { USER_LOGIN, USER_LOGOUT } from './actionTypes';
+import { USER_LOGIN, UPDATE_PROFILE, USER_LOGOUT } from './actionTypes';
 import { FORM_SUBMIT_FAIL } from '../errors/actionTypes';
 
 import axios from '../axios';
@@ -35,6 +35,33 @@ export const login = formData => dispatch => {
 
     })
     .catch(err => console.log(err));
+}
+
+export const updateProfile = (formData, token) => dispatch => {
+  axios.put('/users/update', formData, {
+    headers: { 'Authorization': token },
+  })
+  .then(res => {
+    const { name, email, profile, birthDate, createdDate, updatedDate, token } = res.data;
+
+    const payload = {
+      name,
+      email,
+      profile,
+      birthDate,
+      createdDate,
+      updatedDate,
+      token,
+    }
+
+    return dispatch({
+      type: UPDATE_PROFILE,
+      payload,
+    });
+
+  })
+  .catch(err => console.log(err));
+      
 }
 
 export const logout = formData => dispatch => {
