@@ -55,12 +55,12 @@ npm install
 
 ### Iniciando o servidor
 
-Digite o comando abaixo para iniciar o banco de dados MongoDB e o Nodejs:
+Execute o comando abaixo para iniciar o Nodejs e conectar ao banco de dados MongoDB:
 ``` bash
 npm run server
 ```
 
-Quando terminado a API estará rodando na Url  `http://localhost:8001/api/`
+Aguarde a execução e a API estará rodando na Url  `http://localhost:8001/api/`
 
 Os endpoints disponíveis são:
 - Post - Login [more](https://documenter.getpostman.com/view/4374482/teste-fullstack/RW87p9Mq#0e46cf7d-edf9-416c-bfab-84022d8a346e)
