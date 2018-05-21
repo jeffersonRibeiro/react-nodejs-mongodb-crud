@@ -43,6 +43,7 @@ class Root extends Component {
 
 Root.proptypes = {
   classes: PropTypes.object.isRequired,
+  users: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
