@@ -16,7 +16,6 @@ function from(path) {
   });
 }
 
-
 export default () => (
   <Switch>
     <PrivateRoute exact path="/" component={Home} />
@@ -27,4 +26,4 @@ export default () => (
     <Redirect exact path="/users" to="/users/all" />
     <Route render={() => <Redirect to="/" />} />
   </Switch>
-)
+);

@@ -8,7 +8,6 @@ const moment = require('moment');
 const User = require('../models/Users');
 const config = require('../config');
 
-
 const router = express.Router();
 
 /* 
@@ -85,7 +84,6 @@ router.post('/login', (req, res) => {
           });
         }
 
-
         const payload = {
           id: user.id,
           name: user.name,
@@ -106,7 +104,6 @@ router.post('/login', (req, res) => {
             token: `Bearer ${token}`,
           });
         });
-        
       });
     });
 });
@@ -176,8 +173,5 @@ router.get('/all',  passport.authenticate('jwt', { session: false }), (req, res)
     res.send(users);  
   });
 });
-
-
-
 
 module.exports = router;
