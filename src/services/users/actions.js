@@ -38,9 +38,13 @@ export const login = formData => dispatch => {
 }
 
 export const updateProfile = (formData, token) => dispatch => {
-  axios.put('/users/update', formData, {
-    headers: { 'Authorization': token },
-  })
+  var config = {
+    headers: {
+      'Authorization': token,
+    }
+  };
+
+  axios.put('/users/update', formData, config)
   .then(res => {
     const { name, email, profile, birthDate, createdDate, updatedDate, token } = res.data;
 

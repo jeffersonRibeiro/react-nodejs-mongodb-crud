@@ -16,6 +16,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import moment from 'moment';
 
 import { updateProfile } from '../../services/users/actions';
+import { logout } from '../../services/users/actions';
+import axios from '../../services/axios';
 
 const styles = theme => ({
   root: {
@@ -36,9 +38,6 @@ const styles = theme => ({
   fill: {
     flexBasis: '100%',
   },
-  dates: {
-    flexBasis: '33.33%',
-  }
 });
 
 class Profile extends Component {
@@ -72,6 +71,24 @@ class Profile extends Component {
     updateProfile(formData, user.token);
 
     e.preventDefault();
+  }
+
+  handleDeleteAccount = () => {
+    const { user, logout } = this.props;
+
+    var config = {
+      headers: {
+        'Accept':'',
+        'Authorization': user.token,
+      }
+    };
+
+    axios.delete('/users/delete', config)
+    .then(res => {
+      alert('Conta deletada com sucesso!');
+      logout();
+    })
+    .catch(err => console.log(err));
   }
 
   handleChange = prop => e => {
@@ -121,7 +138,7 @@ class Profile extends Component {
             />
           </FormControl>
           {/* BIRTH DATE */}
-          <FormControl className={[classes.dates, classes.margin].join(' ')}>
+          <FormControl className={[classes.margin].join(' ')}>
           <MuiPickersUtilsProvider utils={MomentUtils}>
               <DatePicker
                 keyboard
@@ -136,7 +153,7 @@ class Profile extends Component {
             </MuiPickersUtilsProvider>
           </FormControl>
           {/* CREATED DATE */}
-          <FormControl className={[classes.dates, classes.margin].join(' ')}>
+          <FormControl className={[classes.margin].join(' ')}>
             <InputLabel htmlFor="input-created-date">Criado em</InputLabel>
             <Input
               id="input-created-date"
@@ -146,7 +163,7 @@ class Profile extends Component {
             />
           </FormControl>
           {/* UPDATED DATE */}
-          <FormControl className={[classes.dates, classes.margin].join(' ')}>
+          <FormControl className={[classes.margin].join(' ')}>
             <InputLabel htmlFor="input-updated-date">Atualizado em</InputLabel>
             <Input
               id="input-updated-date"
@@ -159,6 +176,9 @@ class Profile extends Component {
             Atualizar
           </Button>
         </form>
+        <Button onClick={this.handleDeleteAccount} variant="raised" color="secondary" className={classes.margin}>
+          Deletar
+        </Button>
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',
@@ -194,5 +214,5 @@ const mapStateToProps = state => ({
 
 export default compose(
   withStyles(styles),
-  connect(mapStateToProps, { updateProfile }),
+  connect(mapStateToProps, { updateProfile, logout }),
 )(Profile);

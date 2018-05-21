@@ -169,7 +169,7 @@ class Login extends Component {
             <Input
               id="input-email"
               name="email"
-              type="text"
+              type="email"
               placeholder="example@chaordic.com.br"
               value={this.state.email}
               onChange={this.handleChange('email')}

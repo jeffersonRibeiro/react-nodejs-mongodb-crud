@@ -90,7 +90,7 @@ class Login extends Component {
           <Input
             name="email"
             id="input-email"
-            type="text"
+            type="email"
             value={this.state.email}
             onChange={this.handleChange('email')}
           />
