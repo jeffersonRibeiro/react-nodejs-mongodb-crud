@@ -1,15 +1,16 @@
 ## Teste Fullstack
 <p align="center">
-  <img src="https://img.shields.io/badge/React-16.3.1-blue.svg">
-  <img src="https://img.shields.io/badge/Redux-3.7.2-blue.svg?colorB=764abc">
-  <img src="https://img.shields.io/badge/Nodejs-6.10.2-blue.svg?colorB=90c53f">
+  <img src="https://img.shields.io/badge/Mongoose-5.1.1-blue.svg?colorB=449a45">
+  <img src="https://img.shields.io/badge/React-16.3.2-blue.svg">
+  <img src="https://img.shields.io/badge/Redux-4.0.0-blue.svg?colorB=764abc">
+  <img src="https://img.shields.io/badge/Nodejs-9.11.1-blue.svg?colorB=90c53f">
   <img src="https://img.shields.io/badge/Express-4.16.3-blue.svg?colorB=47535e">
   <br/>
   <img src="./doc/img/crud.gif">
 </p>
 
 #### Backend features
-O banco de dados Mongo foi hospedado no Mlab por conveniência.
+O banco de dados Mongo foi hospedado no MLab por conveniência.
 Foi implementado gravatar para foto de perfil, se o email do usuário tiver um avatar
 no wordpress ela automaticamente é salva no banco.
 Rotas sensíveis foram protegidas por meio de JWT em conjunto com passport.
@@ -21,7 +22,7 @@ Rotas sensíveis foram protegidas por meio de JWT em conjunto com passport.
   * Nodemon - Para restartar o server sempre que houver uma alteração
   * Passport - Para proteger rotas privadas 
   * Jwt - Para proteger rotas privadas
-  * Bcrypt - Cryptografar as senhas de usuário antes de salvar no banco
+  * Bcrypt - Para Cryptografar as senhas de usuário antes de salvar no banco
 - MongoDB
   * Mongoose
 
@@ -52,7 +53,7 @@ Execute o comando abaixo para instalar as dependências:
 npm install
 ```
 
-### Inicie o servidor
+### Iniciando o servidor
 
 Digite o comando abaixo para iniciar o banco de dados MongoDB e o Nodejs:
 ``` bash
@@ -72,14 +73,14 @@ Os endpoints disponíveis são:
 
 Deixe o servidor rodando em um terminal, abra outro e siga para o próximo passo:
 
-### Inicie a SPA React
+### Iniciando a SPA React
 
 Para isso basta executar o comando abaixo, e pronto! :D
 ``` bash
 npm start
 ```
 
-A aplicação irá inicializar automaticamente no seu browser na Url `http://localhost:3000`
+A aplicação irá iniciar automaticamente no browser na Url `http://localhost:3000`
 
 <br/>
 
