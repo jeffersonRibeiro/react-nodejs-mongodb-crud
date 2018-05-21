@@ -8,7 +8,7 @@ module.exports = {
     },
   },
   database: {
-    mongoURI: 'mongodb://jefferson:s19v20a21!@ds225010.mlab.com:25010/teste-fullstack',    
+    mongoURI: '', /* entre em contato jefferson.ribeiro.contato@gmail.com para ter a URI do banco */    
   },
   auth: {
     secretOrKey: 'chaordic',
