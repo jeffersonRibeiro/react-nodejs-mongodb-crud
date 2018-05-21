@@ -35,6 +35,7 @@ router.post('/register', (req, res) => {
       const newUser = User({
         name: req.body.name,
         email: req.body.email,
+        birthDate: req.body.birthDate,
         password: req.body.password,
         profile,
       });
@@ -90,8 +91,9 @@ router.post('/login', (req, res) => {
           name: user.name,
           email: user.email,
           profile: user.profile,
-          created_date: dateFormat(user.created_date),
-          updated_date: dateFormat(user.updated_date),
+          birthDate: dateFormat(user.birthDate),
+          createdDate: dateFormat(user.createdDate),
+          updatedDate: dateFormat(user.updatedDate),
         }
 
         jwt.sign(payload, config.auth.secretOrKey, { expiresIn: 3600 }, (err, token) => {

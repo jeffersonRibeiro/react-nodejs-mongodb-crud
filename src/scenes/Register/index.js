@@ -18,6 +18,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import DatePicker from 'material-ui-pickers/DatePicker';
+import DateFnsUtils from 'material-ui-pickers/utils/date-fns-utils';
+import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
 
 import { FORM_SUBMIT_FAIL } from '../../services/errors/actionTypes';
 import axios from '../../services/axios';
@@ -51,6 +54,7 @@ class Login extends Component {
   state = {
     name: '',
     email: '',
+    birthDate: null,
     password: '',
     showPassword: false,
     beforeSubmitError: false,
@@ -63,10 +67,11 @@ class Login extends Component {
 
   handleRegister = e => {
     const { formSubmitFail } = this.props;
-    const { name, email, password } = e.target;
+    const { name, email, birthDate, password } = e.target;
     const data = {
       name: name.value,
       email: email.value,
+      birthDate: birthDate.value,
       password: password.value,
     }
 
@@ -125,6 +130,10 @@ class Login extends Component {
     this.setState({ dialog })
   }
 
+  handleBirthDateChange = (date) => {
+    this.setState({ birthDate: date });
+  }
+
   render() {
     const { classes, error } = this.props;
     return (
@@ -154,7 +163,7 @@ class Login extends Component {
             error={
               (error.status === 'EMAIL_ALREADY_EXISTS') || 
               (this.state.beforeSubmitError && this.state.name === '') ? true : false}
-            aria-describedby="passowrd-error-text"
+            aria-describedby="email-error-text"
           >
             <InputLabel htmlFor="input-email">Email</InputLabel>
             <Input
@@ -166,14 +175,37 @@ class Login extends Component {
               onChange={this.handleChange('email')}
             />
             {((error.status === 'EMAIL_ALREADY_EXISTS') || (this.state.beforeSubmitError && this.state.name === '')) &&
-              <FormHelperText id="password-error-text">{error.message || 'Preencha o email'}</FormHelperText>
+              <FormHelperText id="email-error-text">{error.message || 'Preencha o email'}</FormHelperText>
             }
           </FormControl>
+          {/* DATA NASCIMENTO */}
+          <FormControl
+            className={[classes.margin, classes.fill].join(' ')}
+            error={(this.state.beforeSubmitError && this.state.birthDate === '') ? true : false}
+            aria-describedby="birthdate-error-text"
+          >
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <DatePicker
+                keyboard
+                name="birthDate"
+                label="Data de nascimento"
+                format="DD/MM/YYYY"
+                placeholder="15/03/1993"
+                mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : [])}
+                value={this.state.birthDate}
+                onChange={this.handleBirthDateChange}
+              />
+            </MuiPickersUtilsProvider>
+            {(this.state.beforeSubmitError && this.state.birthDate === '') &&
+              <FormHelperText id="birthdate-error-text">Preencha a data de nascimento</FormHelperText>
+            }
+          </FormControl>
+
           {/* PASSWORD */}
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}
             error={this.state.beforeSubmitError && this.state.password === '' ? true : false}
-            aria-describedby="passowrd-error-text"
+            aria-describedby="passoword-error-text"
           >
             <InputLabel htmlFor="adornment-password">Password</InputLabel>
             <Input

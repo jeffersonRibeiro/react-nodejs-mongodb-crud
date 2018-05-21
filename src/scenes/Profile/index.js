@@ -82,7 +82,7 @@ class Profile extends Component {
               id="input-created-date"
               type="text"
               disabled={true}
-              value={user.created_date}
+              value={user.createdDate}
             />
           </FormControl>
           {/* UPDATED DATE */}
@@ -92,7 +92,7 @@ class Profile extends Component {
               id="input-updated-date"
               type="text"
               disabled={true}
-              value={user.updated_date}
+              value={user.updatedDate}
             />
           </FormControl>
           <Button type="submit" variant="raised" color="primary" className={classes.margin}>

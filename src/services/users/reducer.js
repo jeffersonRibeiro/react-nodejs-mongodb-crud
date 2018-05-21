@@ -6,8 +6,9 @@ const initialState = {
     name: '',
     email: '',
     profile: '',
-    created_date: '',
-    updated_date: '',
+    birthDate: '',
+    createdDate: '',
+    updatedDate: '',
     token: '',
   },
 }

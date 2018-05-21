@@ -6,7 +6,7 @@ import axios from '../axios';
 export const login = formData => dispatch => {
   axios.post('/users/login', formData)
     .then(res => {
-      const { status, message, name, email, profile, created_date, updated_date, token } = res.data;
+      const { status, message, name, email, profile, birthDate, createdDate, updatedDate, token } = res.data;
       
       if(status !== true) {
         return dispatch({
@@ -22,8 +22,9 @@ export const login = formData => dispatch => {
         name,
         email,
         profile,
-        created_date,
-        updated_date,
+        birthDate,
+        createdDate,
+        updatedDate,
         token,
       }
 

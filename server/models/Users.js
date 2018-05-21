@@ -17,11 +17,15 @@ const UserSchema = new Schema({
   profile: {
     type: String
   },
-  created_date: {
+  birthDate: {
     type: Date,
     default: Date.now,
   },
-  updated_date: {
+  createdDate: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedDate: {
     type: Date,
     default: Date.now,
   }
