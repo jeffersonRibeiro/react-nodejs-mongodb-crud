@@ -34,7 +34,7 @@ Localstorage foi utilizado para persistir o state de usuário no recaregamento d
 #### Usando
 - React
   * Redux - Para gerenciar o state da aplicação
-  * asynRoutes - As rotas carregam apenas apenas quando acessadas, dessa forma evita da aplicação ficar pesada num primeiro carregamento
+  * asynRoutes - As rotas carregam apenas quando acessadas por meio de chunks, dessa forma evita da aplicação ficar pesada num primeiro carregamento
 - Axios - Para fazer as requisições HTTP
 - Local storage nativo - Para persistir o state e o auth nas rotas privadas
 - MaterialUI components
