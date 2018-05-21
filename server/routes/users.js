@@ -123,6 +123,7 @@ router.put('/update',  passport.authenticate('jwt', { session: false }), (req, r
   const formData = {
     name: req.body.name,
     birthDate: moment(req.body.birthDate, 'DD/MM/YYYY'),
+    updatedDate: req.body.updatedDate,
   }
 
   const opts = {

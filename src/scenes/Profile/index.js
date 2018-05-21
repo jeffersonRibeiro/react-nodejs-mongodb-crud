@@ -10,6 +10,10 @@ import Button from '@material-ui/core/Button';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import moment from 'moment';
 
 import { updateProfile } from '../../services/users/actions';
 
@@ -18,6 +22,10 @@ const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
+  },
+  close: {
+    width: theme.spacing.unit * 4,
+    height: theme.spacing.unit * 4,
   },
   margin: {
     margin: theme.spacing.unit,
@@ -40,8 +48,15 @@ class Profile extends Component {
     const { name, birthDate } = this.props.user;
     this.state = {
       name,
-      birthDate, 
+      birthDate,
+      snackbarOpen: false,
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.user.updatedDate !== this.props.user.updatedDate){
+      this.setState({ snackbarOpen: true });
+    }
   }
   
 
@@ -51,6 +66,7 @@ class Profile extends Component {
     const formData = {
       name: name.value,
       birthDate: birthDate.value,
+      updatedDate: new Date(),
     }
 
     updateProfile(formData, user.token);
@@ -65,6 +81,14 @@ class Profile extends Component {
   handleBirthDateChange = (date) => {
     this.setState({ birthDate: date });
   }
+
+  handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ snackbarOpen: false });
+  };
 
   render() {
     const { classes, user } = this.props;
@@ -118,7 +142,7 @@ class Profile extends Component {
               id="input-created-date"
               type="text"
               disabled={true}
-              value={user.createdDate}
+              value={moment(user.createdDate).format('MMMM Do YYYY, h:mm:ss a')}
             />
           </FormControl>
           {/* UPDATED DATE */}
@@ -128,13 +152,37 @@ class Profile extends Component {
               id="input-updated-date"
               type="text"
               disabled={true}
-              value={user.updatedDate}
+              value={moment(user.updatedDate).format('MMMM Do YYYY, h:mm:ss a')}
             />
           </FormControl>
           <Button type="submit" variant="raised" color="primary" className={classes.margin}>
             Atualizar
           </Button>
         </form>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.state.snackbarOpen}
+          autoHideDuration={2500}
+          onClose={this.handleSnackbarClose}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">Perfil Atualizado</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              className={classes.close}
+              onClick={this.handleSnackbarClose}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
+        />
       </React.Fragment>
     );
   }
