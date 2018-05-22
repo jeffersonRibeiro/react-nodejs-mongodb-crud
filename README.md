@@ -30,7 +30,7 @@ Obs: A URI de acesso ao banco de dados foi removida, entre em contato para ter a
   * Mongoose
 
 #### Frontend features
-Foi usado React em conjunto com redux e react-router para construir a SPA.
+Foi usado React em conjunto com Redux e React-router para construir a SPA.
 Rotas protegidas redirecionam para a home e só são acessíveis por meio de auth.
 Localstorage foi utilizado para persistir o state de usuário no recaregamento das páginas.
 
