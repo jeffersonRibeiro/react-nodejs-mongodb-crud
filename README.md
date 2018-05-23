@@ -25,7 +25,7 @@ Obs: A URI de acesso ao banco de dados foi removida, entre em contato para ter a
   * Nodemon - Para restartar o server sempre que houver uma alteração
   * Passport - Para proteger rotas privadas 
   * Jwt - Para proteger rotas privadas
-  * Bcrypt - Para Cryptografar as senhas de usuário antes de salvar no banco
+  * Bcrypt - Para Cryptografar as senhas de usuários antes de salvar no banco
 - MongoDB
   * Mongoose
 
