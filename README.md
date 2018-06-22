@@ -15,9 +15,6 @@ Foi implementado gravatar para foto de perfil, se o email do usuário tiver um a
 no wordpress ela automaticamente é salva no banco.
 Rotas sensíveis foram protegidas por meio de JWT em conjunto com passport.
 
-Obs: A URI de acesso ao banco de dados foi removida, entre em contato para ter a nova URI válida
-`jefferson.ribeiro.contato@gmail.com`
-
 
 #### Usando
 - Nodejs
