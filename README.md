@@ -69,7 +69,7 @@ Os endpoints disponíveis são:
 - Del  - Delete Account [more](https://documenter.getpostman.com/view/4374482/teste-fullstack/RW87p9Mq#1481a07f-160a-4b9c-ba95-7ceb20266b53)
 - Get  - List Users [more](https://documenter.getpostman.com/view/4374482/teste-fullstack/RW87p9Mq#5f812e40-7bf1-47e8-87bb-1390b2fdf70b)
 
-[A documentação completa pode ser encontrada aqui](https://documenter.getpostman.com/view/4374482/teste-fullstack/RW87p9Mq)
+[A documentação completa pode ser encontrada no Postman](https://documenter.getpostman.com/view/4374482/teste-fullstack/RW87p9Mq)
 
 Deixe o servidor rodando em um terminal, abra outro e siga para o próximo passo:
 
