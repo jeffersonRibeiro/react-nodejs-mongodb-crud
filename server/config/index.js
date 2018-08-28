@@ -8,7 +8,7 @@ module.exports = {
     },
   },
   database: {
-    mongoURI: '',    
+    mongoURI: '',  'Create a MongoDB on mlab.com and paste the URI here'  
   },
   auth: {
     secretOrKey: 'chaordic',
