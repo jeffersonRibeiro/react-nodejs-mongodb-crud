@@ -8,7 +8,7 @@ module.exports = {
     },
   },
   database: {
-    mongoURI: '', /* entre em contato jefferson.ribeiro.contato@gmail.com para ter a URI do banco */    
+    mongoURI: '',    
   },
   auth: {
     secretOrKey: 'chaordic',
