@@ -72,9 +72,8 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "concurrently \"nodemon server/index.js\" \"node scripts/start.js\"",
     "build": "node scripts/build.js",
-    "server": "nodemon server/index.js",
     "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {
@@ -120,6 +119,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
+    "concurrently": "^4.0.1",
     "nodemon": "^1.17.4"
   }
 }
