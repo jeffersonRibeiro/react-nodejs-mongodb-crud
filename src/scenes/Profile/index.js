@@ -59,9 +59,9 @@ class Profile extends Component {
   }
   
 
-  handleUpdate = e => {
+  handleUpdate = event => {
     const { user, updateProfile } = this.props;
-    const { name, birthDate } = e.target;
+    const { name, birthDate } = event.target;
     const formData = {
       name: name.value,
       birthDate: birthDate.value,
@@ -70,7 +70,7 @@ class Profile extends Component {
 
     updateProfile(formData, user.token);
 
-    e.preventDefault();
+    event.preventDefault();
   }
 
   handleDeleteAccount = () => {
@@ -78,7 +78,7 @@ class Profile extends Component {
 
     var config = {
       headers: {
-        'Accept':'',
+        'Accept': '',
         'Authorization': user.token,
       }
     };
@@ -91,11 +91,11 @@ class Profile extends Component {
     .catch(err => console.log(err));
   }
 
-  handleChange = prop => e => {
-    this.setState({ [prop]: e.target.value });
+  handleChange = prop => event => {
+    this.setState({ [prop]: event.target.value });
   }
 
-  handleBirthDateChange = (date) => {
+  handleBirthDateChange = date => {
     this.setState({ birthDate: date });
   }
 
@@ -199,7 +199,7 @@ class Profile extends Component {
               className={classes.close}
               onClick={this.handleSnackbarClose}
             >
-              <CloseIcon />
+            <CloseIcon />
             </IconButton>,
           ]}
         />

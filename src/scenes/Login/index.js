@@ -47,13 +47,13 @@ class Login extends Component {
   redirectLogged() {
     const { user, history } = this.props;
 
-    if(user.auth){
+    if(user.auth) {
       history.push('/');
     }
   }
 
-  handleLogin = e => {
-    const { email, password } = e.target;
+  handleLogin = event => {
+    const { email, password } = event.target;
     const data = {
       email: email.value,
       password: password.value,
@@ -61,11 +61,11 @@ class Login extends Component {
 
     this.props.login(data);
 
-    e.preventDefault();
+    event.preventDefault();
   }
 
-  handleChange = prop => e => {
-    this.setState({ [prop]: e.target.value });
+  handleChange = prop => event => {
+    this.setState({ [prop]: event.target.value });
   }
 
   handleClickShowPassword = () => {
@@ -142,7 +142,9 @@ const mapStateToProps = state => ({
   error: state.error,
 })
 
-export default withRouter(compose(
-  withStyles(styles),
-  connect(mapStateToProps, { login }),
-)(Login));
+export default withRouter(
+  compose(
+    withStyles(styles),
+    connect(mapStateToProps, { login }),
+  )(Login)
+);

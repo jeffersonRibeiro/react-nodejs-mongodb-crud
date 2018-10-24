@@ -42,7 +42,7 @@ class Users extends Component {
     axios.get('/users/all', config)
       .then(res => {
         this.setState({ userList: res.data });
-      })
+      });
   }
 
   render() {

@@ -6,7 +6,17 @@ import axios from '../axios';
 export const login = formData => dispatch => {
   axios.post('/users/login', formData)
     .then(res => {
-      const { status, message, name, email, profile, birthDate, createdDate, updatedDate, token } = res.data;
+      const {
+        status,
+        message,
+        name,
+        email,
+        profile,
+        birthDate,
+        createdDate,
+        updatedDate,
+        token
+      } = res.data;
       
       if(status !== true) {
         return dispatch({
@@ -15,7 +25,7 @@ export const login = formData => dispatch => {
             status,
             message,
           },
-        })
+        });
       }
 
       const payload = {
@@ -46,7 +56,15 @@ export const updateProfile = (formData, token) => dispatch => {
 
   axios.put('/users/update', formData, config)
   .then(res => {
-    const { name, email, profile, birthDate, createdDate, updatedDate, token } = res.data;
+    const {
+      name,
+      email,
+      profile,
+      birthDate,
+      createdDate,
+      updatedDate,
+      token
+    } = res.data;
 
     const payload = {
       name,
@@ -68,7 +86,7 @@ export const updateProfile = (formData, token) => dispatch => {
       
 }
 
-export const logout = formData => dispatch => {
+export const logout = () => dispatch => {
   window.localStorage.removeItem('state');
   return dispatch({
     type: USER_LOGOUT,

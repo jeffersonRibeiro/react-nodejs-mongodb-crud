@@ -16,7 +16,7 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
 });
 
-const SideNav = (props) => {
+const SideNav = props => {
   const { classes } = props;
 
   return (

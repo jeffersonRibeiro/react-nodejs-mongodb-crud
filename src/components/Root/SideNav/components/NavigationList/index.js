@@ -6,7 +6,7 @@ import List, { ListSubheader, ListItem, ListItemIcon, ListItemText } from 'mater
 
 import './style.scss';
 
-const NavigationList = (props) => {
+const NavigationList = props => {
   return (
     <List 
       className="nav-link"

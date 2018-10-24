@@ -43,7 +43,9 @@ const mapStateToProps = state => ({
   user: state.user.data,
 });
 
-export default withRouter(compose(
-  withStyles(styles),
-  connect(mapStateToProps, {}),
-)(Main));
+export default withRouter(
+  compose(
+    withStyles(styles),
+    connect(mapStateToProps, {}),
+  )(Main)
+);
