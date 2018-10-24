@@ -18,7 +18,7 @@ const router = express.Router();
 router.post('/register', (req, res) => {
   User.findOne({ email: req.body.email })
     .then(user => {
-      if(user){
+      if(user) {
         return res.json({
           status: 'EMAIL_ALREADY_EXISTS',
           message: 'Email já existe',
@@ -66,7 +66,6 @@ router.post('/login', (req, res) => {
 
   User.findOne({email})
     .then(user => {
-
       /* Email not found */
       if(!user) {
         return res.json({
@@ -94,7 +93,7 @@ router.post('/login', (req, res) => {
           updatedDate: user.updatedDate,
         }
 
-        jwt.sign(payload, config.auth.secretOrKey, { expiresIn: 3600 }, (err, token) => {
+        jwt.sign(payload, config.auth.secretOrKey, { expiresIn: '1h' }, (err, token) => {
           if(err) throw new Error(err);
           
           res.json({

@@ -65,9 +65,9 @@ class Login extends Component {
     }
   };
 
-  handleRegister = e => {
+  handleRegister = event => {
     const { formSubmitFail } = this.props;
-    const { name, email, birthDate, password } = e.target;
+    const { name, email, birthDate, password } = event.target;
     const data = {
       name: name.value,
       email: email.value,
@@ -97,11 +97,11 @@ class Login extends Component {
         .catch(err => console.log(err));
     }
 
-    e.preventDefault();
+    event.preventDefault();
   }
 
-  handleChange = prop => e => {
-    this.setState({ [prop]: e.target.value });
+  handleChange = prop => event => {
+    this.setState({ [prop]: event.target.value });
   }
 
   handleClickShowPassword = () => {
@@ -130,7 +130,7 @@ class Login extends Component {
     this.setState({ dialog })
   }
 
-  handleBirthDateChange = (date) => {
+  handleBirthDateChange = date => {
     this.setState({ birthDate: date });
   }
 
