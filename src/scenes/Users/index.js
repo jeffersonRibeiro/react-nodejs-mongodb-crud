@@ -11,6 +11,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Avatar from '@material-ui/core/Avatar';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import axios from '../../services/axios';
 
@@ -55,7 +56,11 @@ class Users extends Component {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <TableCell></TableCell>
+                <TableCell>
+                  {!userList.length &&
+                    <LinearProgress color="secondary" />
+                  }
+                </TableCell>
                 <TableCell>Nome</TableCell>
                 <TableCell>Email</TableCell>
                 <TableCell>Criado em</TableCell>
