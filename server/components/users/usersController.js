@@ -34,18 +34,18 @@ function register(req, res) {
       _bcryptHash(newUser.password)
         .then(hash => {
           newUser.password = hash;
-          newUser.save()
-            .then(user => res.json({
-              status: true,
-              message: 'Usuário criado com sucesso!',
-            }))
-            .catch(err => {
-              throw new Error(err)
-            });
+          return newUser.save();
+        })
+        .then(() => {
+          res.json({
+            status: true,
+            message: 'Usuário criado com sucesso!',
+          });
         })
         .catch(err => {
           throw new Error(err);
         });
+
     });
 }
 
