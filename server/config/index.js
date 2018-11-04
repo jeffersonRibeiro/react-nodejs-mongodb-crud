@@ -12,5 +12,6 @@ module.exports = {
   },
   auth: {
     secretOrKey: 'chaordic',
+    expiresIn: '1h',
   },
 }

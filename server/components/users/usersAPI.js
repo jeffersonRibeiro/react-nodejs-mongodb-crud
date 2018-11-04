@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 
-const usersControllers = require('../controllers/users');
+const usersController = require('./usersController');
 
 const router = express.Router();
 
@@ -10,14 +10,14 @@ const router = express.Router();
   @desc   Register users
   @access public
 */
-router.post('/register', usersControllers.register);
+router.post('/register', usersController.register);
 
 /* 
   @route  /api/users/login
   @desc   Login users
   @access public
 */
-router.post('/login', usersControllers.login);
+router.post('/login', usersController.login);
 
 /* 
   @route  /api/users/update
@@ -26,7 +26,7 @@ router.post('/login', usersControllers.login);
 */
 router.put('/update',
   passport.authenticate('jwt', { session: false }),
-  usersControllers.update,
+  usersController.update,
 );
 
 /* 
@@ -36,7 +36,7 @@ router.put('/update',
 */
 router.delete('/delete',
   passport.authenticate('jwt', { session: false }),
-  usersControllers.userDelete,
+  usersController.userDelete,
 );
 
 /* 
@@ -46,7 +46,7 @@ router.delete('/delete',
 */
 router.get('/all',
   passport.authenticate('jwt', { session: false }),
-  usersControllers.getUserList,
+  usersController.getUserList,
 );
 
 module.exports = router;

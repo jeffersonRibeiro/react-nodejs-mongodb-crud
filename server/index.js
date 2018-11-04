@@ -5,7 +5,7 @@ const passport = require('passport');
 const cors = require('cors');
 
 const config = require('./config');
-const users = require('./routes/users');
+const usersAPI = require('./components/users/usersAPI');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -24,7 +24,7 @@ app.use(passport.initialize());
 
 require('./config/passport')(passport);
 
-app.use('/api/users', users);
+app.use('/api/users', usersAPI);
 
 app.listen(config.server.port, () => {
   console.log(`Server running on port ${config.server.port}`);

@@ -4,8 +4,8 @@ const gravatar = require('gravatar');
 const moment = require('moment');
 
 
-const config = require('../config');
-const User = require('../models/Users');
+const config = require('../../config');
+const User = require('./UsersSchema');
 
 function register(req, res) {
   User.findOne({ email: req.body.email })
@@ -31,19 +31,21 @@ function register(req, res) {
         profile,
       });
 
-      bcrypt.hash(newUser.password, 10, (err, hash) => {
-        if(err) throw new Error(err);
-
-        newUser.password = hash;
-        newUser.save()
-          .then(user => res.json({
-            status: true,
-            message: 'Usuário criado com sucesso!',
-          }))
-          .catch(err => {
-            throw new Error(err)
-          });
-      });
+      _bcryptHash(newUser.password)
+        .then(hash => {
+          newUser.password = hash;
+          newUser.save()
+            .then(user => res.json({
+              status: true,
+              message: 'Usuário criado com sucesso!',
+            }))
+            .catch(err => {
+              throw new Error(err)
+            });
+        })
+        .catch(err => {
+          throw new Error(err);
+        });
     });
 }
 
@@ -80,16 +82,18 @@ function login(req, res) {
           updatedDate: user.updatedDate,
         }
 
-        jwt.sign(payload, config.auth.secretOrKey, { expiresIn: '1h' }, (err, token) => {
-          if(err) throw new Error(err);
-          
-          res.json({
-            status: true,
-            message: 'Login efeito com sucesso!',
-            ...payload,
-            token: `Bearer ${token}`,
-          });
-        });
+        _jwtSign(payload)
+          .then(token => {
+            res.json({
+              status: true,
+              message: 'Login efeito com sucesso!',
+              ...payload,
+              token: `Bearer ${token}`,
+            });
+          })
+          .catch(err => {
+            throw new Error(err);
+          })
       });
     });
 }
@@ -141,6 +145,34 @@ function userDelete(req, res) {
 const getUserList = (req, res) => {
   User.find({}, (err, users) => {
     res.send(users);  
+  });
+}
+
+function _jwtSign(payload) {
+  const { secretOrKey, expiresIn } = config.auth;
+
+  return new Promise((resolve, reject) => {
+    jwt.sign(payload, secretOrKey, { expiresIn }, (err, token) => {
+      if(err) {
+        reject(err);
+      } else {
+        resolve(token);
+      }
+    });
+  })
+}
+
+function _bcryptHash(str) {
+  const salt = 10;
+
+  return new Promise((resolve, reject) => {
+    bcrypt.hash(str, salt, (err, hash) => {
+      if(err) {
+        reject(err);
+      } else {
+        resolve(hash);
+      }
+    });
   });
 }
 
