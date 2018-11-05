@@ -12,8 +12,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors(process.env.CORS_WHITELIST_DOMAINS.split(',')));
 
-console.log(process.env.CORS_WHITELIST_DOMAINS.split(/\, */));
-
 const db = process.env.DATABASE;
 
 mongoose.connect(db)
