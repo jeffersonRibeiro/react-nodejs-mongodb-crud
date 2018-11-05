@@ -1,10 +1,9 @@
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const gravatar = require('gravatar');
 const moment = require('moment');
 
 
-const config = require('../../config');
+const { bcryptHash, jwtSign } = require('../../util');
 const User = require('./UsersSchema');
 
 function register(req, res) {
@@ -31,7 +30,7 @@ function register(req, res) {
         profile,
       });
 
-      _bcryptHash(newUser.password)
+      bcryptHash(newUser.password)
         .then(hash => {
           newUser.password = hash;
           return newUser.save();
@@ -82,7 +81,7 @@ function login(req, res) {
           updatedDate: user.updatedDate,
         }
 
-        _jwtSign(payload)
+        jwtSign(payload)
           .then(token => {
             res.json({
               status: true,
@@ -145,34 +144,6 @@ function userDelete(req, res) {
 const getUserList = (req, res) => {
   User.find({}, (err, users) => {
     res.send(users);  
-  });
-}
-
-function _jwtSign(payload) {
-  const { secretOrKey, expiresIn } = config.auth;
-
-  return new Promise((resolve, reject) => {
-    jwt.sign(payload, secretOrKey, { expiresIn }, (err, token) => {
-      if(err) {
-        reject(err);
-      } else {
-        resolve(token);
-      }
-    });
-  })
-}
-
-function _bcryptHash(str) {
-  const salt = 10;
-
-  return new Promise((resolve, reject) => {
-    bcrypt.hash(str, salt, (err, hash) => {
-      if(err) {
-        reject(err);
-      } else {
-        resolve(hash);
-      }
-    });
   });
 }
 

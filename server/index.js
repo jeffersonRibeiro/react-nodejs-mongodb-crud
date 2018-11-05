@@ -1,18 +1,20 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const cors = require('cors');
 
-const config = require('./config');
 const usersAPI = require('./components/users/usersAPI');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors(config.server.cors.whiteListDomains));
+app.use(cors(process.env.CORS_WHITELIST_DOMAINS.split(',')));
 
-const db = config.database.mongoURI;
+console.log(process.env.CORS_WHITELIST_DOMAINS.split(/\, */));
+
+const db = process.env.DATABASE;
 
 mongoose.connect(db)
   .then(() => console.log('Connected to Database'))
@@ -22,10 +24,10 @@ mongoose.connect(db)
 
 app.use(passport.initialize());
 
-require('./config/passport')(passport);
+require('./components/users/usersPassport')(passport);
 
 app.use('/api/users', usersAPI);
 
-app.listen(config.server.port, () => {
-  console.log(`Server running on port ${config.server.port}`);
+app.listen(process.env.API_PORT, () => {
+  console.log(`Server running on port ${process.env.API_PORT}`);
 });
