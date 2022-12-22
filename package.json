@@ -38,7 +38,7 @@
     "history": "^4.7.2",
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
-    "jsonwebtoken": "^8.2.1",
+    "jsonwebtoken": "^9.0.0",
     "material-ui": "^1.0.0-beta.47",
     "material-ui-pickers": "^1.0.0-rc.9",
     "moment": "^2.22.1",
